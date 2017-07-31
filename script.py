@@ -54,7 +54,7 @@ def print_pagemap(pid, virtual_address, size):
 
         v_addr = hex(initial_addr + (i * page_size))
         print "virtual_address: {0} hw: {1} | present {2} | file_page {3}".format(v_addr, pfn, present, file_page)
-        
+
 def is_file_page(entry):
   return ((entry & (1 << 61)) != 0)
 ##########################################################
@@ -81,10 +81,14 @@ if __name__ == "__main__":
   else:
     addr = long(sys.argv[2])
 
-  entry = get_pagemap_entry(pid, addr)
-  pfn = get_pfn(entry)
-  print "PFN: {}".format(hex(pfn))
-  print "Is Present? : {}".format(is_present(entry))
-  print "Is file-page: {}".format(is_file_page(entry))
-  print "Page count: {}".format(get_pagecount(pfn))
-  print "Page flags: {}".format(hex(get_page_flags(pfn)))
+  size = sys.argv[3]
+
+  print_pagemap(pid, addr, size)
+
+  # entry = get_pagemap_entry(pid, addr)
+  # pfn = get_pfn(entry)
+  # print "PFN: {}".format(hex(pfn))
+  # print "Is Present? : {}".format(is_present(entry))
+  # print "Is file-page: {}".format(is_file_page(entry))
+  # print "Page count: {}".format(get_pagecount(pfn))
+  # print "Page flags: {}".format(hex(get_page_flags(pfn)))
